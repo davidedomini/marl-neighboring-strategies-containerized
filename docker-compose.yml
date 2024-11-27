@@ -1,0 +1,32 @@
+services:
+  experiment-dtde:
+    hostname: dtde
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: .
+    volumes:
+      - ./data:/data
+    environment:
+      DATA_OWNER: 1000:1000
+      LEARNING_HYPERPARAMETERS: |
+        DTDE: 
+          agents: [4, 8, 12]
+          neighbors: [0]
+          visible_items: [3, 5]
+          seed: { min: 0, max: 5, step: 1 }
+
+  experiment-knnaveraging:
+    hostname: knnaveraging
+    build:
+      dockerfile: ./docker/Dockerfile
+      context: .
+    volumes:
+      - ./data:/data
+    environment:
+      DATA_OWNER: 1000:1000
+      LEARNING_HYPERPARAMETERS: |
+        kNNAveraging:
+          agents: [4, 8, 12]
+          neighbors: [1, 3, 5]
+          visible_items: [3, 5]
+          seed: { min: 0, max: 5, step: 1 }
